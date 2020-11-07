@@ -1,0 +1,66 @@
+import java.lang.reflect.Field;
+
+
+class SBI{
+	
+	protected int pinNum = 1234;
+	private int Id = 999;
+	private String name = "Archana";
+	public int accNum = 4567;
+	private void enter() {
+		
+		System.out.println("The pin number is "+ pinNum);
+		System.out.println("the id is "+Id++);//increment within class
+	}
+	
+    SBI(int Id){
+		
+		this.Id = Id;
+		enter();//inside the class
+	}
+	
+}
+class ICICI{
+	protected int pinNum = 4321;
+	public static int Id = 111;
+	protected String name = "Nagarajan";
+	public int accNum = 7654;
+	private double mobileNum = 1234567890;
+    protected void enter() {
+		
+		System.out.println("The pin number is "+ pinNum);
+		System.out.println("the id is "+Id);
+		System.out.println("name is "+ name);
+		System.out.println("the account number is "+ accNum);
+	}
+    
+	private double getMobileNum() {
+		
+		return this.mobileNum;
+	}
+}
+public class Bank  extends ICICI{
+
+	public static void main(String[] args) throws Exception{
+		
+		 SBI obj=new SBI(123);
+		 Field f = SBI.class.getDeclaredField("name"); 
+	      f.setAccessible(true);
+	      String nameOf =(String)f.get(obj);
+	      //obj.enter();-private
+	     // obj.Id++; -  private
+	      //int Id1 = obj.Id;
+	      //Id1++;
+	      System.out.println("The name is "+ nameOf);
+	      obj.accNum++;//public
+	      System.out.println("the account number is "+obj.accNum);
+	      obj.pinNum++;//protected
+	      System.out.println("the changed pin is " +obj.pinNum);
+	      System.out.println();
+	    
+	      ICICI obj1 = new ICICI();
+	      obj1.enter();
+	      System.out.println("the new id value is "+ Id++);//if static then can print directly
+	     
+	}
+	}
