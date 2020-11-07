@@ -1,0 +1,50 @@
+package polymorphism;
+
+public class Hdfc {
+
+	public int pinNum = 1234;
+	protected int Id = 999;
+	private String name = "Archana";
+	private int accNum = 4567;
+
+	public void enter() {
+	
+		System.out.println("The pin number is "+ pinNum);
+		System.out.println("the id is "+Id++);
+		
+	}
+
+	public int getAccNum() {
+		return accNum;
+	}
+
+	public void setAccNum(int accNum) {
+		this.accNum = accNum;
+	}
+	
+}
+
+package archana;
+
+import java.lang.reflect.Field;
+
+import polymorphism.Hdfc;
+
+public class BankDetails  extends Hdfc{
+
+	public static void main(String[] args) throws Exception {
+		
+		  Hdfc object = new Hdfc();
+		  Field f = Hdfc.class.getDeclaredField("name"); 
+	      f.setAccessible(true);
+	      String nameOf =(String)f.get(object);
+
+	      object.enter();
+	      System.out.println("The name is "+ nameOf);
+	      
+	      System.out.println("the account number is "+object.getAccNum());
+	      object.pinNum++;
+	      System.out.println("the changed pin is " +object.pinNum);
+	      System.out.println();
+	}
+}
